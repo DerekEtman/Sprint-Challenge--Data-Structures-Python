@@ -6,6 +6,7 @@ class RingBuffer:
         self.capacity = capacity
         self.current = None
         self.storage = DoublyLinkedList()
+        self.size_tracker = 0
 
     def append(self, item):
         # Problem: We want a FIFO set up, add items until capacity is full. if full - remove first element and replace.
@@ -15,25 +16,24 @@ class RingBuffer:
 
         # if current is larger than capacity
         # tracking current size of ring
-        size_tracker = 0
 
         # Checking to see if ring is at max capacity.
-        if size_tracker > self.capacity:
+        
+        if self.size_tracker > self.capacity:
             # delete current 
             self.storage.delete(self.current)
-            size_tracker -= 1
+            self.size_tracker -= 1
             # add item to tail
             self.storage.add_to_tail(item)
-            size_tracker += 1
+            self.size_tracker += 1
 
-        # if size_tracker < self.capacity:
-        #     self.current = item
-        #     self.storage.add_to_tail(self.current)
-        #     size_tracker += 1
+        self.current = item
+        self.storage.add_to_head(self.current)
+        self.storage.head = self.current
+        self.size_tracker += 1
 
-        self.storage.add_to_tail(item)
-        # self.current = (size_tracker + 1) % self.capacity
-        print(f"Size Tracker: {size_tracker}, current item: {item}")
+        # print(f"Size Tracker: {self.size_tracker}, current item: {item}")
+        print(self.current)
 
 
     def get(self):
