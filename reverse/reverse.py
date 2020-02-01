@@ -51,11 +51,11 @@ class LinkedList:
       
     current_node = self.head
     saved_node = None
-    next_node = None
+    next_node = self.head.next_node
 
     while current_node is not None:
-      next_node = current_node.next
-      current_node.next = saved_node
+      next_node = current_node.next_node
+      current_node.next_node = saved_node
       saved_node = current_node
       current_node = next_node
     self.head = saved_node
