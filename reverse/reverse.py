@@ -44,14 +44,20 @@ class LinkedList:
 
   def reverse_list(self):
     # Problem: Reverse the LL with out making it a DLL
-    current_node =  Node.get_value(self.head)
-    previous_node = None
-    next_node = None
     
     # While node is true
-    while current_node:
-      # We want to save the pointer to the next
-      next_node = Node.get_next(self.head)
-      current_node.next = previous_node
-      previous_node = current_node
+    if self.head == None:
+      return None
+      
+    current_node = self.head
+    saved_node = None
+    next_node = None
+
+    while current_node is not None:
+      next_node = current_node.next
+      current_node.next = saved_node
+      saved_node = current_node
       current_node = next_node
+    self.head = saved_node
+
+      

@@ -18,26 +18,25 @@ class RingBuffer:
         # tracking current size of ring
 
         # Checking to see if ring is at max capacity.
+
+        if self.size_tracker < self.capacity:
+            self.storage.add_to_tail(item)
+            self.current = self.storage.tail
+            self.size_tracker += 1
+
         
         if self.size_tracker == self.capacity:
-            # delete head of the storage
-            self.storage.remove_from_head()
-            # self.size_tracker -= 1
-
-        self.storage.add_to_tail(item)
-
-        if self.size_tracker > 0:
-            self.current = self.storage.tail
-
-        self.size_tracker += 1
-
-        print(f"storage head: {self.storage.head.value}, adding item {item}")
+            self.current.value = item
+            if self.current is self.storage.tail:
+                self.current = self.storage.head
+            else:
+                self.current = self.current.next
+        # print(f"storage head: {self.storage.head.value}, adding item {item}")
         # print(f"self.current: {self.current}")
 
 
     def get(self):
         # Note:  This is the only [] allowed
-        list_buffer_contents = []
    
         # if self.current:
         #     list_buffer_contents.append(self.current.value)
@@ -47,9 +46,11 @@ class RingBuffer:
         #         list_buffer_contents.append(self.current.value)
         # compare that we have the same amount of elements in our list vs storage
 
+        # if len(list_buffer_contents) < self.storage.length:
+
+        list_buffer_contents = []
         element = self.storage.head
 
-        # if len(list_buffer_contents) < self.storage.length:
         while element:
           list_buffer_contents.append(element.value)
           element = element.next
