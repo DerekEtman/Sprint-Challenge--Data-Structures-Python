@@ -43,5 +43,21 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
-    pass
+    # Problem: Reverse the LL with out making it a DLL
+    
+    # While node is true
+    if self.head == None:
+      return None
+      
+    current_node = self.head
+    saved_node = None
+    next_node = self.head.next_node
+
+    while current_node is not None:
+      next_node = current_node.next_node
+      current_node.next_node = saved_node
+      saved_node = current_node
+      current_node = next_node
+    self.head = saved_node
+
+      
