@@ -22,9 +22,15 @@ duplicates = []
 #             duplicates.append(name_1)
 
 # Cuts down runtime to O(n)
-for name_1 in names_1:
-    if name_1 in names_2:
-        duplicates.append(name_1)
+# for name_1 in names_1:
+#     if name_1 in names_2:
+#         duplicates.append(name_1)
+
+
+names1 = set(names_1)
+names2 = set(names_2)
+duplicates = list(names1.intersection(names2))
+
 
 
 end_time = time.time()
